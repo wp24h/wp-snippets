@@ -1,0 +1,35 @@
+<?php
+
+function meus_produtos( $atts ){
+	global $wpdb;
+	
+	$resultado = $wpdb->get_results ( "SELECT * FROM produtos" );
+	
+	$html = '<table>';
+	
+	$html.= '<tr>';
+	
+	$html.= '<td>Nome</td>';
+	$html.= '<td>Preço</td>';
+	
+	$html.= '</tr>';
+	
+	
+	foreach($resultado as $prd){
+		
+		//$html.= $prd->nome . " - " . $prd->preco . "<br>";
+		
+		$html.= '<tr>';
+	
+		$html.= '<td>'.$prd->nome .'</td>';
+		$html.= '<td>'.$prd->preco .'</td>';
+	
+		$html.= '</tr>';
+		
+	}	
+	
+	$html.= '</table>';
+	
+	return $html;
+}
+add_shortcode( 'produtos', 'meus_produtos' );
