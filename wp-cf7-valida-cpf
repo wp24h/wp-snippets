@@ -1,0 +1,22 @@
+<?php
+
+//Filtro do CF7
+
+add_filter( 'wpcf7_validate_text*', 'custom_cpf_filter', 20, 2 );
+
+//Função para validar o CPF
+//Essa função depende da função "validaCPF"
+//https://gist.github.com/rafael-neri/ab3e58803a08cb4def059fce4e3c0e40
+
+function custom_cpf_filter( $result, $tag ) {
+  if ( 'seu-cpf' == $tag->name ) {
+
+    $cpf = isset( $_POST['seu-cpf'] ) ? trim( $_POST['seu-cpf'] ) : '';
+  
+    if ( !validaCPF($cpf) ) {
+      $result->invalidate( $tag, "CPF Inválido!" );
+    }
+  }
+  
+  return $result;
+}
